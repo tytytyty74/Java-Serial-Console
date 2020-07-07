@@ -21,9 +21,8 @@ public class MainMethod {
         Console in = new Console(endOfProgram);
         in.init();
         int port = in.getPortNum();
-        Serial port1 = new Serial(2);
+        Serial port1 = new Serial(port);
         port1.init();
-        boolean running = true;
         try {
             while (in.shouldRun)
             {

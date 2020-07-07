@@ -35,7 +35,7 @@ public class Console {
                 {
                     try {
                         int temp = Integer.parseInt(consoleReader.readLine());
-                        if (temp > 0 && temp < SerialPort.getCommPorts().length) {
+                        if (temp >= 0 && temp < SerialPort.getCommPorts().length) {
                             port = temp;
                         }
                         else {
