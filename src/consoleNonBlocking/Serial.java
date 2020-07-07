@@ -24,7 +24,7 @@ public class Serial {
         boolean retval = true;
         port = SerialPort.getCommPorts()[portNum];
         retval &= port.setFlowControl(SerialPort.FLOW_CONTROL_DISABLED);
-        retval &= port.setBaudRate(9600);
+        retval &= port.setBaudRate(57600);
         retval &= port.setNumDataBits(8);
         retval &= port.setNumStopBits(1);
         retval &= port.setParity(SerialPort.NO_PARITY);
