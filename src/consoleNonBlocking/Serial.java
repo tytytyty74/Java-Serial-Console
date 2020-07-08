@@ -1,6 +1,7 @@
 package consoleNonBlocking;
 
 import com.fazecast.jSerialComm.SerialPort;
+import com.fazecast.jSerialComm.SerialPortDataListener;
 
 /**
  * class to handle serial port transactions and setup.
@@ -10,9 +11,11 @@ import com.fazecast.jSerialComm.SerialPort;
 public class Serial {
     SerialPort port;
     int portNum;
+    int baud = 9600;
     
     public Serial(int port){
         this.portNum = port;
+        this.port = SerialPort.getCommPorts()[portNum];
     }
     
     /**
@@ -22,15 +25,18 @@ public class Serial {
     public boolean init()
     {
         boolean retval = true;
-        port = SerialPort.getCommPorts()[portNum];
         retval &= port.setFlowControl(SerialPort.FLOW_CONTROL_DISABLED);
-        retval &= port.setBaudRate(57600);
+        retval &= port.setBaudRate(baud);
         retval &= port.setNumDataBits(8);
         retval &= port.setNumStopBits(1);
         retval &= port.setParity(SerialPort.NO_PARITY);
-        retval &= port.addDataListener(new SerialPrintInterrupt(20));
         retval &= port.openPort();
         return retval;
+    }
+    
+    public void setBaud(int baud)
+    {
+        this.baud = baud;
     }
     
     
@@ -46,6 +52,11 @@ public class Serial {
     public void close() {
         // TODO Auto-generated method stub
         port.closePort();
+    }
+
+    public boolean addInterrupt(SerialPortDataListener interrupt) {
+        // TODO Auto-generated method stub
+        return port.addDataListener(interrupt);
     }
 
 }

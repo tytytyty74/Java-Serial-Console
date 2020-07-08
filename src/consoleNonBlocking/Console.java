@@ -22,13 +22,47 @@ public class Console {
         consoleReader = new BufferedReader(consoleIn);
     }
     
+    
+    public int getUserInt(String question, int lowLimit, int highLimit, int nonValue)
+    {
+        int retval = nonValue;
+        System.out.print(question + "\n> ");
+        while (retval == nonValue)
+        {
+            try {
+                if (consoleReader.ready())
+                {
+                    try {
+                        int temp = Integer.parseInt(consoleReader.readLine());
+                        if (temp >= lowLimit && temp <= highLimit)
+                        {
+                            retval = temp;
+                        }
+                        else
+                        {
+                            System.out.println("value out of accpeted range");
+                            System.out.print(question + "\n> ");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("value not an int");
+                        System.out.print(question + "\n >");
+                    }
+                    
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return retval;
+    }
     public int getPortNum()
     {
         int port = -1;
         System.out.println("serial ports available: \n"+Arrays.toString(SerialPort.getCommPorts()));
         System.out.print("which would you like to use?\n> ");
         while (port == -1)
-        {
+        {   
             
             try {
                 if (consoleReader.ready())
